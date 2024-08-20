@@ -39,4 +39,5 @@ tiktoken
 datasets
 cassio
 gradio
-google-api-python-client>=2.100.0
+google-api-python-client
+langchain-google-community

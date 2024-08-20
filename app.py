@@ -1,9 +1,22 @@
 import streamlit as st
 from langchain_groq import ChatGroq
 from langchain.agents import initialize_agent,AgentType
-from langchain_community.utilities import GoogleSearchAPIWrapper
+from langchain_google_community import GoogleSearchAPIWrapper
 from langchain_core.tools import Tool
 import os 
+
+
+GROG_API_KEY = st.secrets['GROQ_API_KEY']
+GOOGLE_API_KEY =  st.secrets['GOOGLE_API_KEY']
+GOOGLE_CSE_ID =  st.secrets['GOOGLE_CSE_ID']
+LANGCHAIN_API_KEY = st.secrets['LANGCHAIN_API_KEY']
+os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
+os.environ["GOOGLE_CSE_ID"] = GOOGLE_CSE_ID
+os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+os.environ["LANGCHAIN_PROJECT"] = "SearchEngineApp"
+
+
 
 search = GoogleSearchAPIWrapper()
 
@@ -24,17 +37,6 @@ Try more LangChain 🤝 Streamlit Agent examples at [github.com/langchain-ai/str
 st.sidebar.title("Settings")
 api_key=st.sidebar.text_input("Enter your Groq API Key:",type="password")
 
-
-GROG_API_KEY = st.secrets['GROQ_API_KEY']
-GOOGLE_API_KEY =  st.secrets['GOOGLE_API_KEY']
-GOOGLE_CSE_ID =  st.secrets['GOOGLE_CSE_ID']
-LANGCHAIN_API_KEY = st.sectets['LANGCHAIN_API_KEY']
-
-os.environ["GOOGLE_API_KEY"] = GOOGLE_API_KEY
-os.environ["GOOGLE_CSE_ID"] = GOOGLE_CSE_ID
-os.environ["LANGCHAIN_API_KEY"] = LANGCHAIN_API_KEY
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "SearchEngineApp"
 
 if "messages" not in st.session_state:
     st.session_state["messages"]=[
